@@ -8,5 +8,9 @@
     "dev": "nodemon server"
   },
   "author": "Souleymane",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "mongoose": "^6.0.2"
+  }
 }
