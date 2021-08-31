@@ -54,13 +54,6 @@ exports.updateSauce = (req, res) => {
         ...req.body
       });
 
-  // const sauceObject = req.file
-  //   ? {
-  //       ...JSON.parse(req.body.sauce),
-  //       imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
-  //     }
-  //   : { ...req.body };
-
   Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
     .then(() => res.status(200).json({ msg: "Sauce modifiée" }))
     .catch(error => res.status(400).json({ error }));
@@ -93,6 +86,7 @@ exports.likeSauce = (req, res) => {
         likes: 0,
         dislikes: 0
       };
+
       // SWITCH THE LIKE:
       switch (like) {
         case 1: // sauce liked
@@ -118,7 +112,7 @@ exports.likeSauce = (req, res) => {
       newValues.dislikes = newValues.usersDisliked.length;
       // Update
       Sauce.updateOne({ _id: sauceId }, newValues)
-        .then(() => res.status(200).json({ message: "Sauce notée !" }))
+        .then(() => res.status(200).json({ message: "Sauce mise à jour !" }))
         .catch(error => res.status(400).json({ error }));
     })
     .catch(error => res.status(500).json({ error }));

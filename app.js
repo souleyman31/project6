@@ -4,8 +4,7 @@ const mongoose = require("mongoose");
 require("dotenv/config");
 
 const path = require("path");
-
-const app = express();
+const bodyParser = require("body-parser");
 
 //MONGOOSE CONNECT
 // mongoose.set("useNewUrlParser", true);
@@ -16,6 +15,9 @@ mongoose
   .connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch(() => console.log("Connexion à MongoDB échouée !"));
+
+//INSTALLATION EXPRESS
+const app = express();
 
 //ERROR CORS
 app.use((req, res, next) => {
@@ -29,15 +31,12 @@ app.use((req, res, next) => {
   next();
 });
 
-//APP USE
 //BODYPARSER USE
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-//APP IMAGES
+//ROUTES
 app.use("/images", express.static(path.join(__dirname, "images")));
-
-//APP USER AND SAUCE
 app.use("/api/auth", require("./routes/user"));
 app.use("/api/sauces", require("./routes/sauce"));
 
