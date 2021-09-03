@@ -6,7 +6,7 @@
 
 - installer Angular Cli 7.0.2;
 - installer node-sass, la version 7.14;
-- lancer npm run start sur le serveur 8081;
+- lancer npm run start sur le port 8081;
 
 # BACKEND
 
