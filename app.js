@@ -4,13 +4,10 @@ const mongoose = require("mongoose");
 require("dotenv/config");
 
 const path = require("path");
-const bodyParser = require("body-parser");
+const helmet = require("helmet");
+const nocache = require("nocache");
 
 //MONGOOSE CONNECT
-// mongoose.set("useNewUrlParser", true);
-// mongoose.set("useFindAndModify", false);
-// mongoose.set("useCreateIndex", true);
-
 mongoose
   .connect(process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connexion à MongoDB réussie !"))
@@ -35,9 +32,15 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+//HELMET AND NOCACHE
+app.use(helmet());
+app.use(nocache());
+
 //ROUTES
 app.use("/images", express.static(path.join(__dirname, "images")));
-app.use("/api/auth", require("./routes/user"));
+
 app.use("/api/sauces", require("./routes/sauce"));
+
+app.use("/api/auth", require("./routes/user"));
 
 module.exports = app;
