@@ -3,6 +3,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv/config");
 
+// console.log(process.env.DB_CONNECTION);
+
 const path = require("path");
 const helmet = require("helmet");
 const nocache = require("nocache");
